@@ -1,0 +1,31 @@
+{
+  "meals": [
+    {
+      "name": "ciasto",
+      "prepareTime": 60,
+      "ingredientsList": [
+        {
+          "name": "olej",
+          "origin": "Polska",
+          "hasGluten": true
+        },
+        {
+          "name": "jajko",
+          "origin": "Polska",
+          "hasGluten": false
+        }
+      ]
+    },
+    {
+      "name": "costam",
+      "prepareTime": 120,
+      "ingredientsList": [
+        {
+          "name": "kasza",
+          "origin": "Czechy",
+          "hasGluten": true
+        }
+      ]
+    }
+  ]
+}
