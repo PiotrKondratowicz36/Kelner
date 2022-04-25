@@ -20,7 +20,7 @@ class Search:
         grid.colliders()
         self.frontier.put(self.start)
         self.came_from[self.start] = None
-        print(grid.gridArray)
+        #print(grid.gridArray)
 
         while not self.frontier.empty():
             current = self.frontier.get()
@@ -60,3 +60,5 @@ class Search:
         if angle == 270:
             image = pygame.image.load('../grafiki/kelner.png')
         return image
+
+
