@@ -25,7 +25,7 @@ class Node:
         y = self.state[1]
         neighbours = []
 
-        #lewy sasiad
+        # lewy sasiad
         if x > 0 and (x, y) in tuple_grid:
 
             if self.direction == "Left":
@@ -39,9 +39,8 @@ class Node:
 
             neighbours.append((decision, (x - 1, y), "Left"))
 
-        #gorny sasiad
+        # gorny sasiad
         if y > 0 and (x, y) in tuple_grid:
-
 
             if self.direction == "Left":
                 decision = ["rotate Right", "Go"]
@@ -54,8 +53,7 @@ class Node:
 
             neighbours.append((decision, (x, y - 1), "Up"))
 
-
-        #prawy sasiad
+        # prawy sasiad
         if x < 16 and (x, y) in tuple_grid:
 
             if self.direction == "Left":
@@ -69,7 +67,7 @@ class Node:
 
             neighbours.append((decision, (x + 1, y), "Right"))
 
-        #dolny sasiad
+        # dolny sasiad
         if y < 16 and (x, y) in tuple_grid:
 
             if self.direction == "Left":
@@ -83,9 +81,9 @@ class Node:
 
             neighbours.append((decision, (x, y + 1), "Down"))
 
-
-        #print(neighbours)
+        # print(neighbours)
         return neighbours
+
 
 def bfs(istate, goal_test, direction, tuple_grid):
     fringe = []
@@ -127,8 +125,6 @@ def bfs(istate, goal_test, direction, tuple_grid):
                 x.parent = elem
                 x.action = action
                 fringe.append(x)
-
-
 
 
 class State:
