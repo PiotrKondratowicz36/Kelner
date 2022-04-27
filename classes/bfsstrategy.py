@@ -107,7 +107,7 @@ def bfs(istate, goal_test, direction, tuple_grid):
                 elem = elem.parent
 
             path.reverse()
-            return path
+            return path[1:]
 
         explored.append(elem)
 
