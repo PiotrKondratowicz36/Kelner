@@ -2,7 +2,7 @@ import pandas
 from sklearn.tree import DecisionTreeClassifier
 
 
-class Decision_Tree:
+def predict_from_decision_tree(age, sex, vegetarian, budget, d_type, temperature, weight):
     dataset = pandas.read_csv("tests.csv")
     print(dataset)
 
@@ -25,11 +25,11 @@ class Decision_Tree:
 
     features = ['Age', 'Sex', 'Vegetarian', 'Budget', 'Type', 'Temperature', 'Weight']
 
-    X = dataset[features]
+    x = dataset[features]
     y = dataset['Dish']
 
     decision_tree = DecisionTreeClassifier()
-    decision_tree = decision_tree.fit(X.values, y)
+    decision_tree = decision_tree.fit(x.values, y)
 
     # export tree.dot
     # data = tree.export_graphviz(decision_tree, out_file='tree.dot', feature_names=features)
@@ -48,4 +48,32 @@ class Decision_Tree:
     #              10 - Pavlova,   11 - Panna Cotta  12 - Souffle
 
     print('Selected dish: ')
-    print(decision_tree.predict([[23, 1, 1, 2, 1, 2, 1]]))
+    predict = decision_tree.predict([[age, sex, vegetarian, budget, d_type, temperature, weight]])
+    return predict
+
+
+def dish_name(number):
+    if number == [1]:
+        print('Soup')
+    if number == [2]:
+        print('Scallops')
+    if number == [3]:
+        print('Chicken')
+    if number == [4]:
+        print('Pork chop')
+    if number == [5]:
+        print('Risotto')
+    if number == [6]:
+        print('Duck')
+    if number == [7]:
+        print('Steak')
+    if number == [8]:
+        print('Ratatouille')
+    if number == [9]:
+        print('Ice cream')
+    if number == [10]:
+        print('Pavlova')
+    if number == [11]:
+        print('Panna Cotta')
+    if number == [12]:
+        print('Souffle')

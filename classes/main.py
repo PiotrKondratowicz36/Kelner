@@ -3,6 +3,8 @@ from classes.ConstantValues import Height, Width, SquareSize
 from classes.Grid import *
 from classes.Search import Search
 from classes.a_star_strategy import a_star_strategy
+from classes.Decision_Tree import *
+import time
 
 testPath = [(1, 1), (2, 13), (13, 4), (3, 7), (4, 11), (3, 0)]
 i = 0
@@ -35,9 +37,9 @@ print(bfs_path)
 Banan = 1
 Water = 100
 G_cost = [
-    [0, 0, 0, Banan, Banan, 0, 0, 0, 0, 0, Banan, 0, Banan, 0, Banan, 0],
-    [0, Banan, 0, Banan, 0, Banan, 0, 0, 0, 0, 100, 0, 0, 0, Water, Water, ],
-    [0, Banan, 0, 0, 0, Water, Water, Water, Water, 0, Banan, 100, 0, 100, Water, Water],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 100, 0, Water],
     [0, 0, Banan, 0, 0, 0, 0, 0, 0, 0, Banan, 0, 100, 100, Water, Water],
     [0, 0, Banan, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
     [0, 0, Banan, Banan, 0, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
@@ -55,7 +57,7 @@ G_cost = [
 ]
 
 
-a_star_path = (a_star_strategy((2, 13), (13, 11), "Right", tuple_grid, G_cost))
+a_star_path = (a_star_strategy((11, 5), (2, 3), "Right", tuple_grid, G_cost))
 print(a_star_path)
 
 
@@ -64,6 +66,11 @@ def agent(x, y):
     posX = (SquareSize * x)
     posY = (SquareSize * y)
     Screen.blit(agentImg, (posX, posY))
+
+def dish(x, y, img):
+    posX = (SquareSize * x)
+    posY = (SquareSize * y)
+    Screen.blit(img, (posX, posY))
 
 
 
@@ -115,8 +122,8 @@ while running:
 
 while running:
     if j == 0 or j == len(a_star_path) - 1:
-        agentX = 2
-        agentY = 13
+        agentX = 11
+        agentY = 5
         agentImg = pygame.image.load('../grafiki/kelner_prawo.png')
         first_angle = 0
         j = 0
@@ -148,9 +155,50 @@ while running:
             first_angle = 270
         agentImg = search.angleSwitch(first_angle)
         agent(agentX, agentY)
-
-
     j += 1
     grid.drawGrid(Screen)
     pygame.display.update()
-    clock.tick(1)
+    clock.tick(3)
+    if j == len(a_star_path) - 1:
+        predict = predict_from_decision_tree(35, 2, 0, 3, 1, 2, 1)
+        print(predict)
+        dish_name(predict)
+        dishImg1 = pygame.image.load('../grafiki/soup.png')
+        dishImg2 = pygame.image.load('../grafiki/scallops.png')
+        dishImg3 = pygame.image.load('../grafiki/chicken.png')
+        dishImg4 = pygame.image.load('../grafiki/porkchop.png')
+        dishImg5 = pygame.image.load('../grafiki/risotto.png')
+        dishImg6 = pygame.image.load('../grafiki/duck.png')
+        dishImg7 = pygame.image.load('../grafiki/steak.png')
+        dishImg8 = pygame.image.load('../grafiki/ratatouille.png')
+        dishImg9 = pygame.image.load('../grafiki/icecream.png')
+        dishImg10 = pygame.image.load('../grafiki/pavlova.png')
+        dishImg11 = pygame.image.load('../grafiki/pannacotta.png')
+        dishImg12 = pygame.image.load('../grafiki/souffle.png')
+        if predict == [1]:
+            dish(2, 3, dishImg1)
+        if predict == [2]:
+            dish(2, 3, dishImg2)
+        if predict == [3]:
+            dish(2, 3, dishImg3)
+        if predict == [4]:
+            dish(2, 3, dishImg4)
+        if predict == [5]:
+            dish(2, 3, dishImg5)
+        if predict == [6]:
+            dish(2, 3, dishImg6)
+        if predict == [7]:
+            dish(2, 3, dishImg7)
+        if predict == [8]:
+            dish(2, 3, dishImg8)
+        if predict == [9]:
+            dish(2, 3, dishImg9)
+        if predict == [10]:
+            dish(2, 3, dishImg10)
+        if predict == [11]:
+            dish(2, 3, dishImg11)
+        if predict == [12]:
+            dish(2, 3, dishImg12)
+        grid.drawGrid(Screen)
+        pygame.display.update()
+        time.sleep(20)
