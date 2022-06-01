@@ -4,6 +4,7 @@ from classes.Grid import *
 from classes.Search import Search
 from classes.a_star_strategy import a_star_strategy
 from classes.Decision_Tree import *
+from classes.recognizesingleimage import *
 import time
 
 testPath = [(1, 1), (2, 13), (13, 4), (3, 7), (4, 11), (3, 0)]
@@ -33,7 +34,7 @@ tuple_grid = [tuple(x) for x in temp_grd]
 
 
 bfs_path = bfs((2, 13), (13, 12), "Right", tuple_grid)
-print(bfs_path)
+# print(bfs_path)
 Banan = 1
 Water = 100
 G_cost = [
@@ -58,7 +59,7 @@ G_cost = [
 
 
 a_star_path = (a_star_strategy((11, 5), (2, 3), "Right", tuple_grid, G_cost))
-print(a_star_path)
+#  print(a_star_path)
 
 
 
@@ -132,6 +133,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     Screen.blit(Background, (0, 0))
+    plate1 = pygame.image.load('../grafiki/zjedzeniem50x50.jpg')
+    plate2 = pygame.image.load('../grafiki/bezjedzenia50x50.jpg')
+    # dish(2, 3, plate1)
+    dish(2, 3, plate2)
 
     if a_star_path[j] == 'Go':
         if first_angle == 0:
@@ -160,45 +165,46 @@ while running:
     pygame.display.update()
     clock.tick(3)
     if j == len(a_star_path) - 1:
-        predict = predict_from_decision_tree(35, 2, 0, 3, 1, 2, 1)
-        print(predict)
-        dish_name(predict)
-        dishImg1 = pygame.image.load('../grafiki/soup.png')
-        dishImg2 = pygame.image.load('../grafiki/scallops.png')
-        dishImg3 = pygame.image.load('../grafiki/chicken.png')
-        dishImg4 = pygame.image.load('../grafiki/porkchop.png')
-        dishImg5 = pygame.image.load('../grafiki/risotto.png')
-        dishImg6 = pygame.image.load('../grafiki/duck.png')
-        dishImg7 = pygame.image.load('../grafiki/steak.png')
-        dishImg8 = pygame.image.load('../grafiki/ratatouille.png')
-        dishImg9 = pygame.image.load('../grafiki/icecream.png')
-        dishImg10 = pygame.image.load('../grafiki/pavlova.png')
-        dishImg11 = pygame.image.load('../grafiki/pannacotta.png')
-        dishImg12 = pygame.image.load('../grafiki/souffle.png')
-        if predict == [1]:
-            dish(2, 3, dishImg1)
-        if predict == [2]:
-            dish(2, 3, dishImg2)
-        if predict == [3]:
-            dish(2, 3, dishImg3)
-        if predict == [4]:
-            dish(2, 3, dishImg4)
-        if predict == [5]:
-            dish(2, 3, dishImg5)
-        if predict == [6]:
-            dish(2, 3, dishImg6)
-        if predict == [7]:
-            dish(2, 3, dishImg7)
-        if predict == [8]:
-            dish(2, 3, dishImg8)
-        if predict == [9]:
-            dish(2, 3, dishImg9)
-        if predict == [10]:
-            dish(2, 3, dishImg10)
-        if predict == [11]:
-            dish(2, 3, dishImg11)
-        if predict == [12]:
-            dish(2, 3, dishImg12)
+        classify(model, image_transforms, 'testplates/bezjedzenia.jpg', platestates)
+        # predict = predict_from_decision_tree(35, 2, 0, 3, 1, 2, 1)
+        # print(predict)
+        # dish_name(predict)
+        # dishImg1 = pygame.image.load('../grafiki/soup.png')
+        # dishImg2 = pygame.image.load('../grafiki/scallops.png')
+        # dishImg3 = pygame.image.load('../grafiki/chicken.png')
+        # dishImg4 = pygame.image.load('../grafiki/porkchop.png')
+        # dishImg5 = pygame.image.load('../grafiki/risotto.png')
+        # dishImg6 = pygame.image.load('../grafiki/duck.png')
+        # dishImg7 = pygame.image.load('../grafiki/steak.png')
+        # dishImg8 = pygame.image.load('../grafiki/ratatouille.png')
+        # dishImg9 = pygame.image.load('../grafiki/icecream.png')
+        # dishImg10 = pygame.image.load('../grafiki/pavlova.png')
+        # dishImg11 = pygame.image.load('../grafiki/pannacotta.png')
+        # dishImg12 = pygame.image.load('../grafiki/souffle.png')
+        # if predict == [1]:
+        #     dish(2, 3, dishImg1)
+        # if predict == [2]:
+        #     dish(2, 3, dishImg2)
+        # if predict == [3]:
+        #     dish(2, 3, dishImg3)
+        # if predict == [4]:
+        #     dish(2, 3, dishImg4)
+        # if predict == [5]:
+        #     dish(2, 3, dishImg5)
+        # if predict == [6]:
+        #     dish(2, 3, dishImg6)
+        # if predict == [7]:
+        #     dish(2, 3, dishImg7)
+        # if predict == [8]:
+        #     dish(2, 3, dishImg8)
+        # if predict == [9]:
+        #     dish(2, 3, dishImg9)
+        # if predict == [10]:
+        #     dish(2, 3, dishImg10)
+        # if predict == [11]:
+        #     dish(2, 3, dishImg11)
+        # if predict == [12]:
+        #     dish(2, 3, dishImg12)
         grid.drawGrid(Screen)
         pygame.display.update()
         time.sleep(20)
