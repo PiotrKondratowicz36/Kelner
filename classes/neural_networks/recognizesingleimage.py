@@ -1,12 +1,10 @@
-import torchvision
 import torch
 import torchvision.transforms as transforms
 import PIL.Image as Image
 
-platestates = ['pusty',
-           'pelny']
+platestates = ['pusty', 'pelny']
 
-model = torch.load('recognizeplate.pth')
+model = torch.load('neural_networks/recognizeplate.pth')
 
 mean = [0.7676, 0.7290, 0.6800]
 std = [0.1982, 0.2108, 0.2328]
@@ -28,4 +26,4 @@ def classify(model, image_transforms, image_path, classes):
     _, predicted = torch.max(output.data, 1)
     print(f'Talerz jest {classes[predicted.item()]}')
 
-classify(model, image_transforms, 'testplates/zastawaikea.jpg', platestates)
+# classify(model, image_transforms, 'neural_networks/testplates/zastawaikea.jpg', platestates)

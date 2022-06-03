@@ -1,5 +1,5 @@
-from Ingredients import Ingredients
-from Meal import Meal
+from classes.objects_classes.Ingredients import Ingredients
+from classes.objects_classes.Meal import Meal
 import json
 
 """

@@ -4,7 +4,7 @@ import torch.optim as optim
 import torchvision.transforms as transforms
 import torchvision
 from torch.utils.data import DataLoader
-from customDataset import PlatesDataset
+from classes.neural_networks.customDataset import PlatesDataset
 
 # Set device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

@@ -1,5 +1,5 @@
 import pygame
-from ConstantValues import Width, Collumns, Rows
+from classes.values_and_grids.ConstantValues import Width, Collumns, Rows
 
 
 class Grid:

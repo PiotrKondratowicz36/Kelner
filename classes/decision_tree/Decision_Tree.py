@@ -1,10 +1,11 @@
 import pandas
+import pygame
 from sklearn.tree import DecisionTreeClassifier
 
 
 def predict_from_decision_tree(age, sex, vegetarian, budget, d_type, temperature, weight):
-    dataset = pandas.read_csv("tests.csv")
-    print(dataset)
+    dataset = pandas.read_csv("decision_tree/tests.csv")
+    # print(dataset)
 
     d = {'F': 1, 'M': 2}
     dataset['Sex'] = dataset['Sex'].map(d)
@@ -47,12 +48,12 @@ def predict_from_decision_tree(age, sex, vegetarian, budget, d_type, temperature
     #              7 - Steak,      8 - Ratatouille,  9 - Ice Cream,
     #              10 - Pavlova,   11 - Panna Cotta  12 - Souffle
 
-    print('Selected dish: ')
     predict = decision_tree.predict([[age, sex, vegetarian, budget, d_type, temperature, weight]])
     return predict
 
 
 def dish_name(number):
+    print('Selected dish: ')
     if number == [1]:
         print('Soup')
     if number == [2]:
@@ -77,3 +78,53 @@ def dish_name(number):
         print('Panna Cotta')
     if number == [12]:
         print('Souffle')
+
+
+def load_images(predict):
+    if predict == [1]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/soup.png')
+        return dish
+
+    if predict == [2]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/scallops.png')
+        return dish
+
+    if predict == [3]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/chicken.png')
+        return dish
+
+    if predict == [4]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/porkchop.png')
+        return dish
+
+    if predict == [5]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/risotto.png')
+        return dish
+
+    if predict == [6]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/duck.png')
+        return dish
+
+    if predict == [7]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/steak.png')
+        return dish
+
+    if predict == [8]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/ratatouille.png')
+        return dish
+
+    if predict == [9]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/icecream.png')
+        return dish
+
+    if predict == [10]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/pavlova.png')
+        return dish
+
+    if predict == [11]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/pannacotta.png')
+        return dish
+
+    if predict == [12]:
+        dish = pygame.image.load('../grafiki/decisiontreeimages/souffle.png')
+        return dish

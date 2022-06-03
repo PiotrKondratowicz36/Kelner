@@ -1,8 +1,7 @@
 import queue
-import time
 from math import atan2, degrees, pi
 import pygame.transform
-from classes.Grid import Grid
+from classes.values_and_grids.Grid import Grid
 
 
 class Search:

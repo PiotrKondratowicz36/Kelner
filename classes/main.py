@@ -1,14 +1,11 @@
-from bfsstrategy import *
-from classes.ConstantValues import Height, Width, SquareSize
-from classes.Grid import *
-from classes.Search import Search
-from classes.a_star_strategy import a_star_strategy
-from classes.Decision_Tree import *
-from classes.recognizesingleimage import *
+from classes.values_and_grids.ConstantValues import *
+from classes.values_and_grids.Grid import *
+from classes.values_and_grids.GridsAndPaths import *
+from classes.decision_tree.Decision_Tree import *
+from classes.searching.Search import Search
+from classes.neural_networks.recognizesingleimage import *
 import time
 
-testPath = [(1, 1), (2, 13), (13, 4), (3, 7), (4, 11), (3, 0)]
-i = 0
 
 # Game screen with grid
 pygame.init()
@@ -20,107 +17,21 @@ grid = Grid()
 search = Search(testPath[1], testPath[5])
 
 
-temp_grd = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10], [0, 11], [0, 12], [0, 13],
-            [0, 14], [1, 1], [1, 2], [1, 5], [1, 6], [1, 9], [1, 10], [1, 13], [1, 14], [1, 15], [2, 1], [2, 2], [2, 5],
-            [2, 6], [2, 9], [2, 10], [2, 13], [2, 14], [2, 15], [3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [3, 6],
-            [3, 7], [3, 8], [3, 9], [3, 10], [3, 11], [3, 12], [3, 13], [3, 14], [3, 15], [4, 0], [4, 1], [4, 2],
-            [4, 3], [4, 4], [4, 5], [4, 6], [4, 7], [4, 8], [4, 9], [4, 10], [4, 11], [4, 12], [4, 13], [4, 14],
-            [4, 15], [5, 1], [5, 2], [5, 5], [5, 6], [5, 9], [5, 10], [5, 13], [5, 14], [5, 15], [6, 1], [6, 2], [6, 5],
-            [6, 6], [6, 9], [6, 10], [6, 13], [6, 14], [6, 15], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5], [7, 6], [7, 7],
-            [7, 8], [7, 9], [7, 10], [7, 11], [7, 12], [7, 13], [7, 14], [8, 4], [8, 5], [9, 4], [9, 5], [10, 4],
-            [10, 5], [11, 4], [11, 5], [12, 4], [12, 5], [12, 6], [12, 7], [12, 8], [12, 9], [12, 10], [12, 11],
-            [13, 4], [13, 5], [13, 6], [13, 7], [13, 8], [13, 9], [13, 10], [13, 11]]
-tuple_grid = [tuple(x) for x in temp_grd]
-
-
-bfs_path = bfs((2, 13), (13, 12), "Right", tuple_grid)
-# print(bfs_path)
-Banan = 1
-Water = 100
-G_cost = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 100, 0, Water],
-    [0, 0, Banan, 0, 0, 0, 0, 0, 0, 0, Banan, 0, 100, 100, Water, Water],
-    [0, 0, Banan, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, Banan, Banan, 0, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [Banan, 0, 0, 0, Banan, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water, Water],
-    [0, 0, Banan, Banan, Banan, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [0, Banan, 0, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, 0, Banan, Banan, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [0, Banan, 0, Banan, 0, Banan, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [0, Banan, 0, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, Banan, 0, 0, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, Banan, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, Banan, Banan, 0, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [Banan, 0, 0, 0, Banan, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [Banan, 0, 0, 0, Banan, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-]
-
-
-a_star_path = (a_star_strategy((11, 5), (2, 3), "Right", tuple_grid, G_cost))
-#  print(a_star_path)
-
-
-
 def agent(x, y):
-    posX = (SquareSize * x)
-    posY = (SquareSize * y)
-    Screen.blit(agentImg, (posX, posY))
+    pos_x = (SquareSize * x)
+    pos_y = (SquareSize * y)
+    Screen.blit(agentImg, (pos_x, pos_y))
+
 
 def dish(x, y, img):
-    posX = (SquareSize * x)
-    posY = (SquareSize * y)
-    Screen.blit(img, (posX, posY))
-
-
+    pos_x = (SquareSize * x)
+    pos_y = (SquareSize * y)
+    Screen.blit(img, (pos_x, pos_y))
 
 
 # Symulacja
 running = True
-j=0
-'''
-while running:
-    if j == 0 or j== len(bfs_path)-1:
-        agentX = 2
-        agentY = 13
-        agentImg = pygame.image.load('../grafiki/kelner_prawo.png')
-        first_angle = 0
-        j=0
-
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-    Screen.blit(Background, (0, 0))
-    #print(bfs_path[j])
-    if bfs_path[j] == 'Go':
-        if first_angle == 0:
-            agentX += 1
-        elif first_angle == 90:
-            agentY -= 1
-        elif first_angle == 180:
-            agentX -= 1
-        elif first_angle == 270:
-            agentY += 1
-        agent(agentX, agentY)
-    if bfs_path[j] == 'rotate Left':
-        first_angle += 90
-        if first_angle == 360:
-            first_angle = 0
-        agentImg = search.angleSwitch(first_angle)
-        agent(agentX, agentY)
-    if bfs_path[j] == 'rotate Right':
-        first_angle  -= 90
-        if first_angle <0:
-            first_angle = 270
-        agentImg = search.angleSwitch(first_angle)
-        agent(agentX, agentY)
-
-
-'''
-
-
+j = 0
 while running:
     if j == 0 or j == len(a_star_path) - 1:
         agentX = 11
@@ -165,46 +76,9 @@ while running:
     pygame.display.update()
     clock.tick(3)
     if j == len(a_star_path) - 1:
-        classify(model, image_transforms, 'testplates/bezjedzenia.jpg', platestates)
-        # predict = predict_from_decision_tree(35, 2, 0, 3, 1, 2, 1)
-        # print(predict)
-        # dish_name(predict)
-        # dishImg1 = pygame.image.load('../grafiki/soup.png')
-        # dishImg2 = pygame.image.load('../grafiki/scallops.png')
-        # dishImg3 = pygame.image.load('../grafiki/chicken.png')
-        # dishImg4 = pygame.image.load('../grafiki/porkchop.png')
-        # dishImg5 = pygame.image.load('../grafiki/risotto.png')
-        # dishImg6 = pygame.image.load('../grafiki/duck.png')
-        # dishImg7 = pygame.image.load('../grafiki/steak.png')
-        # dishImg8 = pygame.image.load('../grafiki/ratatouille.png')
-        # dishImg9 = pygame.image.load('../grafiki/icecream.png')
-        # dishImg10 = pygame.image.load('../grafiki/pavlova.png')
-        # dishImg11 = pygame.image.load('../grafiki/pannacotta.png')
-        # dishImg12 = pygame.image.load('../grafiki/souffle.png')
-        # if predict == [1]:
-        #     dish(2, 3, dishImg1)
-        # if predict == [2]:
-        #     dish(2, 3, dishImg2)
-        # if predict == [3]:
-        #     dish(2, 3, dishImg3)
-        # if predict == [4]:
-        #     dish(2, 3, dishImg4)
-        # if predict == [5]:
-        #     dish(2, 3, dishImg5)
-        # if predict == [6]:
-        #     dish(2, 3, dishImg6)
-        # if predict == [7]:
-        #     dish(2, 3, dishImg7)
-        # if predict == [8]:
-        #     dish(2, 3, dishImg8)
-        # if predict == [9]:
-        #     dish(2, 3, dishImg9)
-        # if predict == [10]:
-        #     dish(2, 3, dishImg10)
-        # if predict == [11]:
-        #     dish(2, 3, dishImg11)
-        # if predict == [12]:
-        #     dish(2, 3, dishImg12)
+        classify(model, image_transforms, 'neural_networks/testplates/bezjedzenia.jpg', platestates)
+        predict = predict_from_decision_tree(35, 2, 0, 3, 1, 2, 1)
+        dish_name(predict)
         grid.drawGrid(Screen)
         pygame.display.update()
         time.sleep(20)
