@@ -3,7 +3,6 @@ from classes.values_and_grids.GridsAndPaths import *
 from classes.values_and_grids.ConstantValues import *
 import random
 
-
 '''
 def customer_movement(x, y, customerImg):
    pos_x = (SquareSize * x)
@@ -15,39 +14,26 @@ Screen = pygame.display.set_mode((Height, Width))
 
 class Customers:
 
-    def __init__(self, random_seat):
+    def __init__(self, random_seat, age, sex, vegetarian, budget, d_type, temperature, weight, img):
         self.random_seat = random_seat
+        self.age = age
+        self.sex = sex
+        self.vegetarian = vegetarian
+        self.budget = budget
+        self.d_type = d_type
+        self.temperature = temperature
+        self.weight = weight
+        self.img = img
+        self.meal = None
 
     def customer_spawn(self):
 
         random_seat = random.choice(free_seats)
-        character_random = random.randint(0, 1)
-        if character_random == 1:
-            customerImg = pygame.image.load('../grafiki/klient_1.png')
-        else:
-            customerImg = pygame.image.load('../grafiki/klient_2.png')
-
-
         seat_num = seats.get(random_seat)
 
-        return seat_num[0], seat_num[1], customerImg, random_seat
+        return seat_num[0], seat_num[1], self.img, random_seat
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+all_customers = [Customers(1, 55, 1, 1, 3, 1, 2, 2, "../grafiki/klient_1.png"),
+                 Customers(1, 20, 2, 0, 1, 2, 1, 1, "../grafiki/klient_2.png"),
+                 Customers(1, 36, 1, 0, 2, 1, 2, 1, "../grafiki/kelner.png")]

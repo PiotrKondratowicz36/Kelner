@@ -40,7 +40,6 @@ G_cost = [
     [Banan, 0, 0, 0, Banan, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
 ]
 
-a_star_path = (a_star_strategy((11, 5), (2, 3), "Right", tuple_grid, G_cost))
 
 seats = {  1  : (1,0),  2 : (2,0),   3 : (5,0),   4 : (6,0),
            5  : (1,3),  6 : (2,3),   7 : (5,3),   8 : (6,3),
