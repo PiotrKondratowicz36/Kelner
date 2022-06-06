@@ -129,7 +129,7 @@ def a_star_strategy(start, goal, direction, map, mapbycost):
             len_action = 0
             if current_node.action is not None:
                 len_action = len(current_node.action)
-            succesor_current_cost = current_node.g + mapbycost[node_successor.state[0]][node_successor.state[1]] + len_action
+            succesor_current_cost = current_node.g + mapbycost[node_successor.state[0]-1][node_successor.state[1]-1] + len_action
             if node_successor in open_list:
                 if node_successor.g <= succesor_current_cost:
                     continue

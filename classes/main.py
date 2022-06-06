@@ -43,19 +43,14 @@ def dish(x, y, img):
 running = True
 j = 0
 flag = False
-cust_iter = 0
-cust_timing = 0
 priority = False
-active_customers = []
+
+
 agentX = 11
 agentY = 5
 
+active_customers = []
 while running:
-    if cust_iter > 10:
-        flag = False
-        priority = False
-        cust_iter = 0
-        cust_timing = 0
 
     if j == 0 or j == len(a_star_path) - 1:
         agentX = 11
@@ -72,33 +67,35 @@ while running:
     # klient_stuff_ghetto_code
 
     # spawnowanie nowego klienta
-    if (len(free_seats) > 0 and flag == False and len(all_customers) > 0) or priority == True:
 
-        # warunek stania przy drzwiach
-        if cust_timing == 0:
+    if len(active_customers) < 3:
+            i = 3 - len(active_customers)
+            for _ in range(i):
 
-            cust = rchoice(all_customers)  # losujemy klienta a potem go usuwamy z listy klientow
-            all_customers.remove(cust)
-            res = cust.customer_spawn()
-            usedtables.append(Table(res[0], res[1], cust))  # dodajemy stolik do listy uzywanych stolikow
-            cust_timing = 1
-            priority == True
-            customer_movement(4, 15, pygame.image.load(res[2]))  # spawn przy wejsciu
+                '''cust = rchoice(all_customers)  # losujemy klienta a potem go usuwamy z listy klientow
+                all_customers.remove(cust)
+                res = cust.customer_spawn()
+                usedtables.append(Table(res[0], res[1], cust))  # dodajemy stolik do listy uzywanych stolikow
+                cust_timing = 1
+                priority == True
+                customer_movement(4, 15, pygame.image.load(res[2]))  # spawn przy wejsciu
+                '''
+                cust = rchoice(all_customers)  # losujemy klienta a potem go usuwamy z listy klientow
+                res = cust.customer_spawn()
+                usedtables.append(Table(res[0],res[1], cust))
+
+                active_customers.append([res[3], res[0], res[1], pygame.image.load(res[2]), 'waiting'])  # tablica tablic z obecnymi klientami
+                free_seats.remove(res[3])
+
 
             for customers in active_customers:
-                customer_movement(customers[1], customers[2], customers[3])  # printuj wszystkich klientow
+                customer_movement(customers[1], customers[2], customers[3])
 
-            active_customers.append(
-                [res[3], res[0], res[1], pygame.image.load(res[2])])  # tablica tablic z obecnymi klientami
-            free_seats.remove(res[3])  # zajmuje miejsce
-        else:
-            for customers in active_customers:
-                customer_movement(customers[1], customers[2], customers[3])  # printuj klientow
     else:
         for customers in active_customers:
             customer_movement(customers[1], customers[2], customers[3])
 
-    cust_iter = cust_iter + 1
+
 
     if len(active_customers) == 3:  # jesli wszyscy klienci siedza juz na miejscach rozpoczynamy zbieranie zamowien
 
@@ -118,23 +115,32 @@ while running:
                 elif first_angle == 270:
                     agentY += 1
                 agent(agentX, agentY)
+
             if a_star_path[j] == 'rotate Left':
                 first_angle += 90
                 if first_angle == 360:
                     first_angle = 0
                 agentImg = search.angleSwitch(first_angle)
                 agent(agentX, agentY)
+
             if a_star_path[j] == 'rotate Right':
                 first_angle -= 90
                 if first_angle < 0:
                     first_angle = 270
                 agentImg = search.angleSwitch(first_angle)
                 agent(agentX, agentY)
+
             j += 1
             grid.drawGrid(Screen)
-            pygame.display.update()
-            clock.tick(5)
 
+            pygame.display.update()
+            Screen.blit(Background, (0, 0))
+            for customers in active_customers:
+                customer_movement(customers[1], customers[2], customers[3])
+
+
+            clock.tick(2)
+        #Screen.blit(Background, (0, 0))
         # akcja gdy kelner jest przy celu
         incoming.order = True
         incoming.customer.meal = predict_from_decision_tree(incoming.customer.age,
@@ -146,5 +152,7 @@ while running:
                                                             incoming.customer.weight)  # przypisujemy klientowi posilek
         print(incoming.customer.meal)
         grid.drawGrid(Screen)
+
         pygame.display.update()
-        time.sleep(6)
+
+        #time.sleep(3)
