@@ -9,6 +9,7 @@ from classes.objects_classes.Customer import *
 import time
 import random
 from random import choice as rchoice
+from classes.genetics_algorithms.GA import *
 
 # Game screen with grid
 pygame.init()
@@ -45,9 +46,13 @@ j = 0
 flag = False
 priority = False
 
-
 agentX = 11
 agentY = 5
+
+# for i in range(0, 10):
+#   clientslist.append(Client([int(random.random() * 100), int(random.random() * 100)]))
+
+# print(geneticAlgorithm(clientslist, 100, 20, 0.01, 100))
 
 active_customers = []
 while running:
@@ -69,10 +74,9 @@ while running:
     # spawnowanie nowego klienta
 
     if len(active_customers) < 3:
-            i = 3 - len(active_customers)
-            for _ in range(i):
-
-                '''cust = rchoice(all_customers)  # losujemy klienta a potem go usuwamy z listy klientow
+        i = 3 - len(active_customers)
+        for _ in range(i):
+            '''cust = rchoice(all_customers)  # losujemy klienta a potem go usuwamy z listy klientow
                 all_customers.remove(cust)
                 res = cust.customer_spawn()
                 usedtables.append(Table(res[0], res[1], cust))  # dodajemy stolik do listy uzywanych stolikow
@@ -80,22 +84,24 @@ while running:
                 priority == True
                 customer_movement(4, 15, pygame.image.load(res[2]))  # spawn przy wejsciu
                 '''
-                cust = rchoice(all_customers)  # losujemy klienta a potem go usuwamy z listy klientow
-                res = cust.customer_spawn()
-                usedtables.append(Table(res[0],res[1], cust))
+            cust = rchoice(all_customers)  # losujemy klienta a potem go usuwamy z listy klientow
+            res = cust.customer_spawn()
+            usedtables.append(Table(res[0], res[1], cust))
 
-                active_customers.append([res[3], res[0], res[1], pygame.image.load(res[2]), 'waiting'])  # tablica tablic z obecnymi klientami
-                free_seats.remove(res[3])
+            active_customers.append(
+                [res[3], res[0], res[1], pygame.image.load(res[2]), 'waiting'])  # tablica tablic z obecnymi klientami
+            free_seats.remove(res[3])
 
-
-            for customers in active_customers:
-                customer_movement(customers[1], customers[2], customers[3])
+        for customers in active_customers:
+            customer_movement(customers[1], customers[2], customers[3])
 
     else:
         for customers in active_customers:
             customer_movement(customers[1], customers[2], customers[3])
-
-
+    clientslist = []
+    for i in range(0, len(active_customers)):
+        clientslist.append(Client([active_customers[i][1], active_customers[i][2]]))
+    print(geneticAlgorithm(clientslist, Client([agentX, agentY]), 100, 20, 0.25, 500))
 
     if len(active_customers) == 3:  # jesli wszyscy klienci siedza juz na miejscach rozpoczynamy zbieranie zamowien
 
@@ -138,9 +144,8 @@ while running:
             for customers in active_customers:
                 customer_movement(customers[1], customers[2], customers[3])
 
-
             clock.tick(2)
-        #Screen.blit(Background, (0, 0))
+        # Screen.blit(Background, (0, 0))
         # akcja gdy kelner jest przy celu
         incoming.order = True
         incoming.customer.meal = predict_from_decision_tree(incoming.customer.age,
@@ -155,4 +160,4 @@ while running:
 
         pygame.display.update()
 
-        #time.sleep(3)
+        # time.sleep(3)
