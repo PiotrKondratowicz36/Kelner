@@ -3,8 +3,8 @@ from classes.values_and_grids.constant_values import *
 from classes.values_and_grids.grid import *
 from classes.values_and_grids.grids_and_paths import *
 from classes.decision_tree.decision_tree import *
-from classes.searching.Search import Search
-from classes.objects_classes.Table import Table
+from classes.searching.search import Search
+from classes.objects_classes.table import Table
 from classes.neural_networks.recognize_single_image import *
 from classes.objects_classes.customers import *
 from classes.objects_classes.order import *
@@ -63,6 +63,21 @@ def dish(x, y, img):
     pos_y = (square_size * y)
     Screen.blit(img, (pos_x, pos_y))
 
+def obst(x, y, img):
+    pos_x = (square_size * x)
+    pos_y = (square_size * y)
+    Screen.blit(pygame.image.load(img), (pos_x, pos_y))
+
+def obsticles():
+    for i in range(0, len(G_cost) - 1):
+        for j in range(0, len(G_cost[i]) - 1):
+            if G_cost[i][j] == water:
+
+                eke = '../grafiki/woda.png'
+                obst(i, j, eke)
+            elif G_cost[i][j] == banan:
+                kek = '../grafiki/banan.png'
+                obst(i, j, kek)
 
 # simulation
 
@@ -71,6 +86,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+
 
     if fresh_start:
         agentImg = pygame.image.load('../grafiki/kelner_prawo.png')
@@ -92,7 +109,7 @@ while running:
             customer_spawned = customer.customer_spawn()
             used_tables.append(Table(customer_spawned[0], customer_spawned[1], customer))
             active_customers.append(
-                [customer_spawned[3], customer_spawned[0], customer_spawned[1], pygame.image.load(customer_spawned[2]),'waiting'])
+                [customer_spawned[3], customer_spawned[0], customer_spawned[1], pygame.image.load(customer_spawned[2]), 'waiting'])
             free_seats.remove(customer_spawned[3])
 
         for customers in active_customers:
@@ -101,6 +118,14 @@ while running:
     else:
         for customers in active_customers:
             customer_spawn(customers[1], customers[2], customers[3])
+
+        if orders_taken == True:
+            for meal_in_list in undelivered_dish_list:
+                dish(meal_in_list[1], meal_in_list[2], meal_in_list[3])
+
+
+
+
 
     # ZBIERANIE ZAMOWIEN
     if len(active_customers) == customers_limit and orders_taken == False:
@@ -136,6 +161,7 @@ while running:
                 agentImg = search.angleSwitch(first_angle)
                 agent(agent_x, agent_y)
 
+            obsticles()
             fresh_start = False
             last_x_coordinates = agent_x
             last_y_coordinates = agent_y
@@ -144,13 +170,23 @@ while running:
 
             grid.draw_grid(Screen)
             pygame.display.update()
+
+
+
+
             Screen.blit(Background, (0, 0))
             for customers in active_customers:
                 customer_spawn(customers[1], customers[2], customers[3])
 
             clock.tick(10)
+
+
+
+
         # Screen.blit(Background, (0, 0))
         # akcja gdy kelner jest przy celu
+
+
         waiting_client.order = True
         waiting_client.customer.meal = predict_from_decision_tree(waiting_client.customer.age,
                                                                   waiting_client.customer.sex,
@@ -173,8 +209,12 @@ while running:
         if len(orders_list) == 3:
             orders_taken = True
 
+
+
         grid.draw_grid(Screen)
-        pygame.display.update()
+        #pygame.display.update()
+
+
         continue
 
     if len(undelivered_dish_list) > 0 and orders_taken == True and orders_delivered == False and carries_meal == False:
@@ -208,14 +248,19 @@ while running:
                 agentImg = search.angleSwitch(first_angle)
                 agent(agent_x, agent_y)
 
+            obsticles()
             fresh_start = False
             last_x_coordinates = agent_x
             last_y_coordinates = agent_y
 
             waiter_step += 1
 
+
+
             grid.draw_grid(Screen)
             pygame.display.update()
+
+
             Screen.blit(Background, (0, 0))
             for customers in active_customers:
                 customer_spawn(customers[1], customers[2], customers[3])
@@ -255,14 +300,19 @@ while running:
                 agentImg = search.angleSwitch(first_angle)
                 agent(agent_x, agent_y)
 
+            obsticles()
+
             fresh_start = False
             last_x_coordinates = agent_x
             last_y_coordinates = agent_y
 
             waiter_step += 1
 
+
             grid.draw_grid(Screen)
             pygame.display.update()
+
+
             Screen.blit(Background, (0, 0))
             for customers in active_customers:
                 customer_spawn(customers[1], customers[2], customers[3])
@@ -275,4 +325,6 @@ while running:
         continue
     grid.draw_grid(Screen)
     pygame.display.update()
+
+
     Screen.blit(Background, (0, 0))

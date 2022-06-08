@@ -1,4 +1,4 @@
-from classes.objects_classes.Ingredients import Ingredients
+from classes.objects_classes.ingredients import Ingredients
 from classes.objects_classes.meal import meal
 import json
 

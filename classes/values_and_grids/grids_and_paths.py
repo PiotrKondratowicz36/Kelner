@@ -1,6 +1,7 @@
 from classes.searching.a_star_strategy import a_star_strategy
 from classes.searching.bfsstrategy import bfs
 
+
 testPath = [(1, 1), (2, 13), (13, 4), (3, 7), (4, 11), (3, 0)]
 
 temp_grd = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10], [0, 11], [0, 12], [0, 13],
@@ -18,26 +19,26 @@ tuple_grid = [tuple(x) for x in temp_grd]
 
 bfs_path = bfs((2, 13), (13, 12), "Right", tuple_grid)
 
-Banan = 1
-Water = 100
+banan = 3
+water = 10
 G_cost = [
+    [0, 0, water, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, water, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, banan, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, water, 0, 0, 0, banan, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, water, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, banan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, water, 0],
+    [0, 0, 0, 0, 0, water, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, banan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, banan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, water, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, banan, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, water, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 100, 0, Water],
-    [0, 0, Banan, 0, 0, 0, 0, 0, 0, 0, Banan, 0, 100, 100, Water, Water],
-    [0, 0, Banan, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, Banan, Banan, 0, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [Banan, 0, 0, 0, Banan, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water, Water],
-    [0, 0, Banan, Banan, Banan, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [0, Banan, 0, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, 0, Banan, Banan, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [0, Banan, 0, Banan, 0, Banan, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [0, Banan, 0, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, Banan, 0, 0, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, Banan, 0, 0, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [0, 0, Banan, Banan, 0, 0, 0, 0, 0, 0, Banan, 0, 0, 0, Water, Water],
-    [Banan, 0, 0, 0, Banan, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
-    [Banan, 0, 0, 0, Banan, Water, Water, Water, Water, 0, Banan, 0, 0, 0, Water, Water],
+    [0, 0, 0, 0, 0, water, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
 seats = {1: (1, 0), 2: (2, 0), 3: (5, 0), 4: (6, 0),
@@ -55,3 +56,4 @@ meal_deposit = {1: (14, 4), 2: (14, 5), 3: (14, 6), 4: (14, 7),
                 5: (14, 8), 6: (14, 9), 7: (14, 10), 8: (14, 11)}
 
 free_deposits = [1, 2, 3, 4, 5, 6, 7, 8]
+

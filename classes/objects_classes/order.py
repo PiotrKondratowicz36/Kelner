@@ -1,5 +1,5 @@
 from enum import Enum
-from classes.objects_classes.Table import Table
+from classes.objects_classes.table import Table
 
 
 class order_status(Enum):
