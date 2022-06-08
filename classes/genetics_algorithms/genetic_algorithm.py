@@ -4,7 +4,7 @@ import pandas as pd
 import random
 
 
-class Client:
+class client:
     def __init__(self, state):
         self.state = state
 
@@ -17,36 +17,36 @@ class Client:
         return "(" + str(self.state[0]) + "," + str(self.state[1]) + ")"
 
 
-class Fitness:
+class fitness:
     def __init__(self, route):
         self.route = route
         self.distance = 0
         self.fitness = 0.0
 
-    def routeDistance(self, start):
+    def route_distance(self, start):
         if self.distance == 0:
-            pathDistance = 0
+            path_distance = 0
             for i in range(0, len(self.route)):
-                fromClient = self.route[i]
-                toClient = None
+                from_client = self.route[i]
+                to_client = None
                 if i + 1 < len(self.route):
-                    toClient = self.route[i + 1]
+                    to_client = self.route[i + 1]
                 else:
-                    toClient = self.route[0]
-                pathDistance += fromClient.distance(toClient, start)
-            self.distance = pathDistance
+                    to_client = self.route[0]
+                path_distance += from_client.distance(to_client, start)
+            self.distance = path_distance
         return self.distance
 
-    def routeFitness(self, start):
+    def route_fitness(self, start):
         if self.fitness == 0:
-            self.fitness = 1 / float(self.routeDistance(start))
+            self.fitness = 1 / float(self.route_distance(start))
         return self.fitness
 
 
-def createRoute(clientList):
+def create_route(client_list):
     route = []
-    route.append(clientList[0])
-    r = random.sample(clientList, len(clientList))
+    route.append(client_list[0])
+    r = random.sample(client_list, len(client_list))
     for i in range(0, len(r)):
         if r[i] != route[0]:
             route.append(r[i])
@@ -56,15 +56,15 @@ def createRoute(clientList):
 def initialClients(clientsize, clientList):
     clientsr = []
     for i in range(0, clientsize):
-        clientsr.append(createRoute(clientList))
+        clientsr.append(create_route(clientList))
     return clientsr
 
 
 def rankRoutes(clientsr, start):
     fitnessResult = {}
     for i in range(0, len(clientsr)):
-        fitness = Fitness(clientsr[i])
-        fitnessResult[i] = fitness.routeFitness(start)
+        fitness = fitness(clientsr[i])
+        fitnessResult[i] = fitness.route_fitness(start)
     return sorted(fitnessResult.items(), key=operator.itemgetter(1), reverse=True)
 
 

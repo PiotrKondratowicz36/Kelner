@@ -1,7 +1,10 @@
+import random
+from classes.values_and_grids.grids_and_paths import *
+
 import pygame
 
 
-class Meal:
+class meal:
 
     def __init__(self, id, name, prepareTime):
         self.id = id
@@ -58,15 +61,22 @@ class Meal:
             return dish
 
 
-listofmeals = [Meal(1, 'Soup', 60),
-               Meal(2, 'Scallops', 45),
-               Meal(3, 'Chicken', 80),
-               Meal(4, 'Pork Chop', 82),
-               Meal(5, 'Risotto', 70),
-               Meal(6, 'Duck', 60),
-               Meal(7, 'Steak', 45),
-               Meal(8, 'Ratatouille', 35),
-               Meal(9, 'Ice cream', 10),
-               Meal(10, 'Pavlova', 20),
-               Meal(11, 'Panna Cotta', 22),
-               Meal(12, 'Souffle', 25)]
+def meal_spawn():
+    random_deposit = random.choice(free_deposits)
+    deposit_num = meal_deposit.get(random_deposit)
+
+    return deposit_num[0], deposit_num[1], random_deposit
+
+
+listofmeals = [meal(1, 'Soup', 60),
+               meal(2, 'Scallops', 45),
+               meal(3, 'Chicken', 80),
+               meal(4, 'Pork Chop', 82),
+               meal(5, 'Risotto', 70),
+               meal(6, 'Duck', 60),
+               meal(7, 'Steak', 45),
+               meal(8, 'Ratatouille', 35),
+               meal(9, 'Ice cream', 10),
+               meal(10, 'Pavlova', 20),
+               meal(11, 'Panna Cotta', 22),
+               meal(12, 'Souffle', 25)]

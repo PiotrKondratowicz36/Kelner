@@ -1,13 +1,13 @@
 from enum import Enum
-from Table import Table
+from classes.objects_classes.Table import Table
 
 
-class OrderStatus(Enum):
+class order_status(Enum):
     COMPLETED = 'completed'
     IN_PROGRESS = 'inprogress'
 
 
-class Order:
+class order:
 
     """
         Klasa uzywana do reprezetancji obiektu Order.
@@ -21,7 +21,7 @@ class Order:
     """
 
     def __init__(self, listOfMeals, status, table):
-        if status not in set(item.value for item in OrderStatus):
+        if status not in set(item.value for item in order_status):
             raise ValueError("order status not valid")
         self._status = status
         self._listOfMeals = listOfMeals
@@ -29,7 +29,7 @@ class Order:
 
 
     @property
-    def listOfMeals(self):
+    def list_of_meals(self):
         return self._listOfMeals
 
     @property
@@ -40,8 +40,8 @@ class Order:
     def table(self):
         return self._table
 
-    @listOfMeals.setter
-    def listOfMeals(self, value):
+    @list_of_meals.setter
+    def list_of_meals(self, value):
         self._listOfMeals = value
 
     @status.setter

@@ -1,18 +1,18 @@
 import pygame
-from classes.values_and_grids.GridsAndPaths import *
-from classes.values_and_grids.ConstantValues import *
+from classes.values_and_grids.grids_and_paths import *
+from classes.values_and_grids.constant_values import *
 import random
 
 '''
-def customer_movement(x, y, customerImg):
+def customer_spawn(x, y, customerImg):
    pos_x = (SquareSize * x)
    pos_y = (SquareSize * y)
    Screen.blit(customerImg, (pos_x, pos_y))
 '''
-Screen = pygame.display.set_mode((Height, Width))
+Screen = pygame.display.set_mode((height, width))
 
 
-class Customers:
+class customers:
 
     def __init__(self, random_seat, age, sex, vegetarian, budget, d_type, temperature, weight, img):
         self.random_seat = random_seat
@@ -34,6 +34,6 @@ class Customers:
         return seat_num[0], seat_num[1], self.img, random_seat
 
 
-all_customers = [Customers(1, 55, 1, 1, 3, 1, 2, 2, "../grafiki/klient_1.png"),
-                 Customers(1, 20, 2, 0, 1, 2, 1, 1, "../grafiki/klient_2.png"),
-                 Customers(1, 36, 1, 0, 2, 1, 2, 1, "../grafiki/kelner.png")]
+all_customers = [customers(1, 55, 1, 1, 3, 1, 2, 2, "../grafiki/klient_1.png"),
+                 customers(1, 20, 2, 0, 1, 2, 1, 1, "../grafiki/klient_2.png"),
+                 customers(1, 36, 1, 0, 2, 1, 2, 1, "../grafiki/kelner.png")]

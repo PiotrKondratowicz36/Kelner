@@ -56,27 +56,39 @@ def dish_name(number):
     print('Selected dish: ')
     if number == [1]:
         print('Soup')
+        return 'Soup'
     if number == [2]:
         print('Scallops')
+        return 'Scallops'
     if number == [3]:
         print('Chicken')
+        return 'Chicken'
     if number == [4]:
         print('Pork chop')
+        return 'Pork chop'
     if number == [5]:
         print('Risotto')
+        return 'Risotto'
     if number == [6]:
         print('Duck')
+        return 'Duck'
     if number == [7]:
         print('Steak')
+        return 'Steak'
     if number == [8]:
         print('Ratatouille')
+        return 'Ratatouille'
     if number == [9]:
         print('Ice cream')
+        return 'Ice cream'
     if number == [10]:
         print('Pavlova')
+        return 'Pavlova'
     if number == [11]:
         print('Panna Cotta')
+        return 'Panna Cotta'
     if number == [12]:
         print('Souffle')
+        return 'Souffle'
 
 
