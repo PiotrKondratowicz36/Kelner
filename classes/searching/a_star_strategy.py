@@ -118,18 +118,23 @@ def a_star_strategy(start, goal, direction, map, mapbycost):
             path = []
             current = current_node
             while current is not None:
-                 if current.action is not None:
-                     current.action.reverse()
-                     for each_action in current.action:
-                         path.append(each_action)
-                 current = current.parent
+                if current.action is not None:
+                    current.action.reverse()
+                    for each_action in current.action:
+                        path.append(each_action)
+                current = current.parent
             return path[::-1]
 
         for node_successor in current_node.succ(map):
             len_action = 0
             if current_node.action is not None:
                 len_action = len(current_node.action)
-            succesor_current_cost = current_node.g + mapbycost[node_successor.state[0]][node_successor.state[1]] + len_action
+            try:
+                succesor_current_cost = current_node.g + mapbycost[node_successor.state[0]][
+                    node_successor.state[1]] + len_action
+            except:
+                continue
+
             if node_successor in open_list:
                 if node_successor.g <= succesor_current_cost:
                     continue
@@ -146,5 +151,5 @@ def a_star_strategy(start, goal, direction, map, mapbycost):
             node_successor.f += node_successor.g + node_successor.h
             node_successor.parent = current_node
         closed_list.append(current_node)
-    if(current_node!=end_node):
+    if (current_node != end_node):
         return "ERROR"
