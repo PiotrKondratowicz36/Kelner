@@ -5,6 +5,7 @@ from classes.searching.search import Search
 from classes.objects_classes.customers import *
 from classes.objects_classes.order import *
 from classes.objects_classes.meal import *
+from classes.neural_networks.recognize_single_image import *
 import time
 from random import choice as rchoice
 
@@ -26,7 +27,7 @@ orders_taken = False
 orders_delivered = False
 carries_meal = False
 waiter_step = 0
-speed = 30
+speed = 40
 
 start_pos_x = 11
 start_pos_y = 5
@@ -99,6 +100,11 @@ while running:
         first_angle = 0
         waiter_step = 0
 
+    if len(orders_list) == 3:
+        orders_taken = True
+    else:
+        orders_taken = False
+
     # SPAWNOWANIE KLIENTOW
     if len(active_customers) < customers_limit:
         i = customers_limit - len(active_customers)
@@ -108,7 +114,7 @@ while running:
             used_tables.append(Table(customer_spawned[0], customer_spawned[1], customer))
             active_customers.append(
                 [customer_spawned[3], customer_spawned[0], customer_spawned[1], pygame.image.load(customer_spawned[2]),
-                 'waiting'])
+                 'waiting', 0, random.randint(5, 10), customer_spawned[2]])
             free_seats.remove(customer_spawned[3])
 
         for customers in active_customers:
@@ -118,12 +124,20 @@ while running:
         for customers in active_customers:
             customer_spawn(customers[1], customers[2], customers[3])
 
+            if customers[4] == 'eating':
+                if customers[5] == customers[6]:
+                    customers[3] = pygame.image.load('../grafiki/bezjedzenia50x50.jpg')
+                    customers [7] = '../grafiki/bezjedzenia50x50.jpg'
+                else:
+                    customers[5] += 1
+
         if orders_taken == True:
             for meal_in_list in undelivered_dish_list:
                 dish(meal_in_list[1], meal_in_list[2], meal_in_list[3])
 
+
     # ZBIERANIE ZAMOWIEN
-    if len(active_customers) == customers_limit and orders_taken == False:
+    if orders_taken == False:
 
         eating_client = rchoice(used_tables)
         while eating_client.order:
@@ -193,9 +207,6 @@ while running:
         free_deposits.remove(meal_spawned[2])
         undelivered_dish_list.append([meal_spawned[2], meal_spawned[0], meal_spawned[1], meal_image, new_order.table])
 
-        if len(orders_list) == 3:
-            orders_taken = True
-
         grid.draw_grid(Screen)
         # pygame.display.update()
 
@@ -207,9 +218,9 @@ while running:
 
         current_meal = rchoice(undelivered_dish_list)
         a_star_path = (a_star_strategy((agent_x, agent_y), (current_meal[1], current_meal[2]), "Right", tuple_grid,
-                                       G_cost))  # Generowana jest trasa do stolika klienta
+                                       G_cost))
 
-        while waiter_step != len(a_star_path) - 1:  # rozpoczynamy sciezke do klienta
+        while waiter_step != len(a_star_path) - 1:
             if a_star_path[waiter_step] == 'Go':
                 if first_angle == 0:
                     agent_x += 1
@@ -257,10 +268,16 @@ while running:
     # POJSCIE DO KLIENTA Z JEGO ZAMOWIENIEM
 
     if len(undelivered_dish_list) > 0 and orders_taken == True and orders_delivered == False and carries_meal == True:
-        a_star_path = (a_star_strategy((agent_x, agent_y), current_meal[4], "Right", tuple_grid,
-                                       G_cost))  # Generowana jest trasa do stolika klienta
 
-        while waiter_step != len(a_star_path) - 1:  # rozpoczynamy sciezke do klienta
+        a_star_path = (a_star_strategy((agent_x, agent_y), current_meal[4], "Right", tuple_grid,
+                                       G_cost))
+
+        for waiting_customer in active_customers:
+            if (waiting_customer[1],waiting_customer[2]) == current_meal[4]:
+                current_customer = waiting_customer
+                break
+
+        while waiter_step != len(a_star_path) - 1:
             if a_star_path[waiter_step] == 'Go':
                 if first_angle == 0:
                     agent_x += 1
@@ -287,7 +304,6 @@ while running:
                 agent(agent_x, agent_y)
 
             obstacles()
-
             fresh_start = False
             last_x_coordinates = agent_x
             last_y_coordinates = agent_y
@@ -304,6 +320,11 @@ while running:
             for meal_in_list in undelivered_dish_list:
                 dish(meal_in_list[1], meal_in_list[2], meal_in_list[3])
 
+        current_customer[3] = pygame.image.load('../grafiki/zjedzeniem50x50.jpg')
+        current_customer[7] = '../grafiki/zjedzeniem50x50.jpg'
+        current_customer[4] = 'eating'
+        print(f"klient ze stolika {current_customer[0]} zaczal wlasnie jesc")
+
         undelivered_dish_list.remove(current_meal)
         carries_meal = False
         continue
@@ -312,9 +333,9 @@ while running:
 
     if len(undelivered_dish_list) == 0:
 
-        eating_client = rchoice(used_tables)
+        eating_client = rchoice(active_customers)
         a_star_path = (
-            a_star_strategy((agent_x, agent_y), (eating_client.x, eating_client.y), "Right", tuple_grid, G_cost))
+            a_star_strategy((agent_x, agent_y), (eating_client[1], eating_client[2]), "Right", tuple_grid, G_cost))
 
         while waiter_step != len(a_star_path) - 1:
             if a_star_path[waiter_step] == 'Go':
@@ -354,3 +375,8 @@ while running:
             Screen.blit(Background, (0, 0))
             for customers in active_customers:
                 customer_spawn(customers[1], customers[2], customers[3])
+
+        ocena = classify(model, image_transforms, eating_client[7], platestates)
+        if ocena == 'Talerz jest pusty':
+            print(ocena)
+            print(f"Klient ze stolika {eating_client[0]} wlasnie zjadl")

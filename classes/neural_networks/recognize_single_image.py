@@ -24,6 +24,6 @@ def classify(model, image_transforms, image_path, classes):
 
     output = model(image)
     _, predicted = torch.max(output.data, 1)
-    print(f'Talerz jest {classes[predicted.item()]}')
+    return f'Talerz jest {classes[predicted.item()]}'
 
 # classify(model, image_transforms, 'neural_networks/testplates/zastawaikea.jpg', platestates)
